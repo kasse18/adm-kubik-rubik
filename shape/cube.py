@@ -662,7 +662,14 @@ class Cube:
         for elem in self.shape3:
             if 6 in elem.colors:
                 self.white_shape3.append(elem)
-
+        flag = True
+        while flag:
+            flag = False
+            for elem in self.white_shape3:
+                if elem.pos != [self.color_position[elem.colors[0]], self.color_position[elem.colors[1]],
+                                self.color_position[elem.colors[2]]] and 1 not in elem.pos:
+                    self.first_two(elem)
+                    self.first_finish(elem)
         flag = True
         cnt = 0
         # todo если угол на своем месте но не правильно ориентирован, надо спустить
@@ -677,7 +684,14 @@ class Cube:
                         cnt += 1
                         flag = True
                         pp = elem.pos[ind_wh]
-                        if self.color_left[elem.colors[ind_u]] == self.position_color[elem.pos[ind_wh]]:
+                        match sorted([ind_wh, ind_u]):
+                            case [0, 1]:
+                                ind_3 = 2
+                            case [1, 2]:
+                                ind_3 = 0
+                            case [0, 2]:
+                                ind_3 = 1
+                        if self.color_left[elem.colors[ind_u]] == elem.colors[ind_3]:
                             self.position_function[pp]()
                             self.D()
                             self.position_function_3[pp]()
@@ -713,8 +727,15 @@ class Cube:
                                 self.D()
                                 self.position_function[pp2]()
                         else:
+                            match sorted([ind_wh, ind_u]):
+                                case [0, 1]:
+                                    ind_3 = 2
+                                case [1, 2]:
+                                    ind_3 = 0
+                                case [0, 2]:
+                                    ind_3 = 1
                             pp = elem.pos[ind_wh]
-                            if self.color_left[elem.colors[ind_u]] == self.position_color[elem.pos[ind_wh]]:
+                            if self.color_left[elem.colors[ind_u]] == elem.colors[ind_3]:
                                 self.position_function[pp]()
                                 self.D()
                                 self.position_function_3[pp]()

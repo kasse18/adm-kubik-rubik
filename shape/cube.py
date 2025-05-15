@@ -21,6 +21,7 @@ class Cube:
         print(self.cube)
         self.colors = [c.black, c.red, c.orange, c.yellow, c.green, c.blue, c.white, c.gray]
         self.move_count = 0
+        self.cubestring = ''
         # Центральные квадраты
         self.cube[0][1][1] = 2
         self.cube[1][1][1] = 1
@@ -332,6 +333,7 @@ class Cube:
 
     # Up
     def U(self):
+        self.cubestring += "U "
         time.sleep(c.render_timer)
         self.switch(1)
         self.move_count += 1
@@ -339,6 +341,7 @@ class Cube:
 
     # Right
     def R(self):
+        self.cubestring += "R "
         time.sleep(c.render_timer)
         self.switch(5)
         self.move_count += 1
@@ -346,6 +349,7 @@ class Cube:
 
     # Left
     def L(self):
+        self.cubestring += "L "
         time.sleep(c.render_timer)
         self.switch(4)
         self.move_count += 1
@@ -353,13 +357,15 @@ class Cube:
 
     # Down
     def D(self):
+        self.cubestring += "D "
         time.sleep(c.render_timer)
         self.switch(3)
         self.move_count += 1
         self.render()
 
-    # Front
+    # Frontча
     def F(self):
+        self.cubestring += "F "
         time.sleep(c.render_timer)
         self.switch(2)
         self.move_count += 1
@@ -367,6 +373,7 @@ class Cube:
 
     # Back
     def B(self):
+        self.cubestring += "B "
         time.sleep(c.render_timer)
         self.switch(0)
         self.move_count += 1
@@ -374,6 +381,7 @@ class Cube:
 
     # 180* up
     def U2(self):
+        self.cubestring += "U2 "
         time.sleep(c.render_timer)
         self.switch(1)
         self.switch(1)
@@ -382,6 +390,7 @@ class Cube:
 
     # 180* right
     def R2(self):
+        self.cubestring += "R2 "
         time.sleep(c.render_timer)
         self.switch(5)
         self.switch(5)
@@ -390,6 +399,7 @@ class Cube:
 
     # 180* left
     def L2(self):
+        self.cubestring += "L2 "
         time.sleep(c.render_timer)
         self.switch(4)
         self.switch(4)
@@ -398,6 +408,7 @@ class Cube:
 
     # 180* down
     def D2(self):
+        self.cubestring += "D2 "
         time.sleep(c.render_timer)
         self.switch(3)
         self.switch(3)
@@ -406,6 +417,7 @@ class Cube:
 
     # 180* front
     def F2(self):
+        self.cubestring += "F2 "
         time.sleep(c.render_timer)
         self.switch(2)
         self.switch(2)
@@ -414,6 +426,7 @@ class Cube:
 
     # 180* back
     def B2(self):
+        self.cubestring += "B2 "
         time.sleep(c.render_timer)
         self.switch(0)
         self.switch(0)
@@ -422,6 +435,7 @@ class Cube:
 
     # reversed up
     def u(self):
+        self.cubestring += "U' "
         time.sleep(c.render_timer)
         self.switch(1)
         self.switch(1)
@@ -431,6 +445,7 @@ class Cube:
 
     # reversed right
     def r(self):
+        self.cubestring += "R' "
         time.sleep(c.render_timer)
         self.switch(5)
         self.switch(5)
@@ -440,6 +455,7 @@ class Cube:
 
     # reversed left
     def l(self):
+        self.cubestring += "L' "
         time.sleep(c.render_timer)
         self.switch(4)
         self.switch(4)
@@ -449,6 +465,7 @@ class Cube:
 
     # reversed down
     def d(self):
+        self.cubestring += "D' "
         time.sleep(c.render_timer)
         self.switch(3)
         self.switch(3)
@@ -458,6 +475,7 @@ class Cube:
 
     # reversed front
     def f(self):
+        self.cubestring += "F' "
         # print("f")
         time.sleep(0.3)
         self.switch(2)
@@ -468,6 +486,7 @@ class Cube:
 
     # reversed back
     def b(self):
+        self.cubestring += "B' "
         # print("b")
         time.sleep(c.render_timer)
         self.switch(0)
@@ -480,6 +499,7 @@ class Cube:
         funcs = [self.U, self.B, self.D, self.F, self.R, self.L, ]
         funcs[random.randint(0, len(funcs) - 1)]()
         self.move_count = 0
+        self.cubestring = ''
 
     # сборка креста
     def cross_func(self, position: int):

@@ -47,4 +47,4 @@ cubeShape: list[list[list[int]]] = [
             ]
         ]
 
-render_timer = 0.1
+render_timer = 0

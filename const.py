@@ -46,3 +46,5 @@ cubeShape: list[list[list[int]]] = [
                 [3, 10, 6]
             ]
         ]
+
+render_timer = 0.1

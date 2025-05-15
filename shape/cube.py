@@ -320,49 +320,49 @@ class Cube:
 
     def U(self):
         # print("U")
-        time.sleep(0.1)
+        time.sleep(c.render_timer)
         self.switch(1)
         self.move_count += 1
         self.render()
 
     def R(self):
         # print("R")
-        time.sleep(0.1)
+        time.sleep(c.render_timer)
         self.switch(5)
         self.move_count += 1
         self.render()
 
     def L(self):
         # print("L")
-        time.sleep(0.1)
+        time.sleep(c.render_timer)
         self.switch(4)
         self.move_count += 1
         self.render()
 
     def D(self):
         # print("D")
-        time.sleep(0.1)
+        time.sleep(c.render_timer)
         self.switch(3)
         self.move_count += 1
         self.render()
 
     def F(self):
         # print("F")
-        time.sleep(0.1)
+        time.sleep(c.render_timer)
         self.switch(2)
         self.move_count += 1
         self.render()
 
     def B(self):
         # print("B")
-        time.sleep(0.1)
+        time.sleep(c.render_timer)
         self.switch(0)
         self.move_count += 1
         self.render()
 
     def U2(self):
         # print("U")
-        time.sleep(0.1)
+        time.sleep(c.render_timer)
         self.switch(1)
         self.switch(1)
         self.move_count += 1
@@ -370,7 +370,7 @@ class Cube:
 
     def R2(self):
         # print("R")
-        time.sleep(0.1)
+        time.sleep(c.render_timer)
         self.switch(5)
         self.switch(5)
         self.move_count += 1
@@ -378,7 +378,7 @@ class Cube:
 
     def L2(self):
         # print("L")
-        time.sleep(0.1)
+        time.sleep(c.render_timer)
         self.switch(4)
         self.switch(4)
         self.move_count += 1
@@ -386,7 +386,7 @@ class Cube:
 
     def D2(self):
         # print("D")
-        time.sleep(0.1)
+        time.sleep(c.render_timer)
         self.switch(3)
         self.switch(3)
         self.move_count += 1
@@ -394,7 +394,7 @@ class Cube:
 
     def F2(self):
         # print("F")
-        time.sleep(0.1)
+        time.sleep(c.render_timer)
         self.switch(2)
         self.switch(2)
         self.move_count += 1
@@ -402,7 +402,7 @@ class Cube:
 
     def B2(self):
         # print("B")
-        time.sleep(0.1)
+        time.sleep(c.render_timer)
         self.switch(0)
         self.switch(0)
         self.move_count += 1
@@ -410,7 +410,7 @@ class Cube:
 
     def u(self):
         # # print("u")
-        time.sleep(0.1)
+        time.sleep(c.render_timer)
         self.switch(1)
         self.switch(1)
         self.switch(1)
@@ -419,7 +419,7 @@ class Cube:
 
     def r(self):
         # print("r")
-        time.sleep(0.1)
+        time.sleep(c.render_timer)
         self.switch(5)
         self.switch(5)
         self.switch(5)
@@ -428,7 +428,7 @@ class Cube:
 
     def l(self):
         # print("l")
-        time.sleep(0.1)
+        time.sleep(c.render_timer)
         self.switch(4)
         self.switch(4)
         self.switch(4)
@@ -437,7 +437,7 @@ class Cube:
 
     def d(self):
         # print("d")
-        time.sleep(0.1)
+        time.sleep(c.render_timer)
         self.switch(3)
         self.switch(3)
         self.switch(3)
@@ -455,7 +455,7 @@ class Cube:
 
     def b(self):
         # print("b")
-        time.sleep(0.1)
+        time.sleep(c.render_timer)
         self.switch(0)
         self.switch(0)
         self.switch(0)

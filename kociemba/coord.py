@@ -12,7 +12,7 @@ from kociemba.enums import Edge as Ed
 SOLVED = 0
 u_edges_plus_d_edges_to_ud_edges = None
 
-
+'''Представление куба на координатном уровне'''
 class CoordCube:
     def __init__(self, cc=None):
         if cc is None:

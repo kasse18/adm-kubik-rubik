@@ -1,5 +1,4 @@
 def rotate_right(arr, left, right):
-    """"Rotate array arr right between left and right. right is included."""
     temp = arr[right]
     for i in range(right, left, -1):
         arr[i] = arr[i-1]
@@ -7,7 +6,6 @@ def rotate_right(arr, left, right):
 
 
 def rotate_left(arr, left, right):
-    """"Rotate array arr left between left and right. right is included."""
     temp = arr[left]
     for i in range(left, right):
         arr[i] = arr[i+1]
@@ -15,7 +13,6 @@ def rotate_left(arr, left, right):
 
 
 def c_nk(n, k):
-    """Binomial coefficient [n choose k]."""
     if n < k:
         return 0
     if k > n // 2:

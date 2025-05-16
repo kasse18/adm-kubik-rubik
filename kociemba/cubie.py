@@ -4,37 +4,45 @@ import kociemba.face as face
 from kociemba.misc import c_nk, rotate_left, rotate_right
 
 
-# U-move
+'''
+В последующих методах для каждой грани:
+1 строка - перестановка углов
+2 строка - смена ориентации углов
+3 строка - перестановка граней
+4 строка - смена ориентации граней
+'''
+
+# Up-move
 cpU = [Co.UBR, Co.URF, Co.UFL, Co.ULB, Co.DFR, Co.DLF, Co.DBL, Co.DRB]
 coU = [0, 0, 0, 0, 0, 0, 0, 0]
 epU = [Ed.UB, Ed.UR, Ed.UF, Ed.UL, Ed.DR, Ed.DF, Ed.DL, Ed.DB, Ed.FR, Ed.FL, Ed.BL, Ed.BR]
 eoU = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-# R-move
-cpR = [Co.DFR, Co.UFL, Co.ULB, Co.URF, Co.DRB, Co.DLF, Co.DBL, Co.UBR]  # permutation of the corners
-coR = [2, 0, 0, 1, 1, 0, 0, 2]  # changes of the orientations of the corners
-epR = [Ed.FR, Ed.UF, Ed.UL, Ed.UB, Ed.BR, Ed.DF, Ed.DL, Ed.DB, Ed.DR, Ed.FL, Ed.BL, Ed.UR]  # permutation of the edges
-eoR = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]  # changes of the permutations of the edges
+# Right-move
+cpR = [Co.DFR, Co.UFL, Co.ULB, Co.URF, Co.DRB, Co.DLF, Co.DBL, Co.UBR]
+coR = [2, 0, 0, 1, 1, 0, 0, 2]
+epR = [Ed.FR, Ed.UF, Ed.UL, Ed.UB, Ed.BR, Ed.DF, Ed.DL, Ed.DB, Ed.DR, Ed.FL, Ed.BL, Ed.UR]
+eoR = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-# F-move
+# Front-move
 cpF = [Co.UFL, Co.DLF, Co.ULB, Co.UBR, Co.URF, Co.DFR, Co.DBL, Co.DRB]
 coF = [1, 2, 0, 0, 2, 1, 0, 0]
 epF = [Ed.UR, Ed.FL, Ed.UL, Ed.UB, Ed.DR, Ed.FR, Ed.DL, Ed.DB, Ed.UF, Ed.DF, Ed.BL, Ed.BR]
 eoF = [0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0]
 
-# D-move
+# Down-move
 cpD = [Co.URF, Co.UFL, Co.ULB, Co.UBR, Co.DLF, Co.DBL, Co.DRB, Co.DFR]
 coD = [0, 0, 0, 0, 0, 0, 0, 0]
 epD = [Ed.UR, Ed.UF, Ed.UL, Ed.UB, Ed.DF, Ed.DL, Ed.DB, Ed.DR, Ed.FR, Ed.FL, Ed.BL, Ed.BR]
 eoD = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-# L-move
+# Left-move
 cpL = [Co.URF, Co.ULB, Co.DBL, Co.UBR, Co.DFR, Co.UFL, Co.DLF, Co.DRB]
 coL = [0, 1, 2, 0, 0, 2, 1, 0]
 epL = [Ed.UR, Ed.UF, Ed.BL, Ed.UB, Ed.DR, Ed.DF, Ed.FL, Ed.DB, Ed.FR, Ed.UL, Ed.DL, Ed.BR]
 eoL = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-# B-move
+# Back-move
 cpB = [Co.URF, Co.UFL, Co.UBR, Co.DRB, Co.DFR, Co.DLF, Co.ULB, Co.DBL]
 coB = [0, 0, 1, 2, 0, 0, 2, 1]
 epB = [Ed.UR, Ed.UF, Ed.UL, Ed.BR, Ed.DR, Ed.DF, Ed.DL, Ed.BL, Ed.FR, Ed.FL, Ed.UB, Ed.DB]
@@ -46,7 +54,7 @@ CUBE_OK = True
 class CubieCube:
     def __init__(self, cp=None, co=None, ep=None, eo=None):
         if cp is None:
-            self.cp = [Co(i) for i in range(8)]  # You may not put this as the default two lines above!
+            self.cp = [Co(i) for i in range(8)]
         else:
             self.cp = cp[:]
         if co is None:
@@ -411,7 +419,7 @@ class CubieCube:
                 k -= 1
 
     def get_ud_edges(self):
-        perm = self.ep[0:8]  # duplicate first 8 elements of ep
+        perm = self.ep[0:8]
         b = 0
         for j in range(Ed.DB, Ed.UR, -1):
             k = 0
@@ -422,7 +430,6 @@ class CubieCube:
         return b
 
     def set_ud_edges(self, idx):
-        # positions of FR FL BL BR edges are not affected
         for i in list(Ed)[0:8]:
             self.ep[i] = i
         for j in list(Ed)[0:8]:

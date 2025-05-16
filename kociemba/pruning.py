@@ -39,16 +39,13 @@ def set_corners_ud_edges_depth3(ix, value):
     corners_ud_edges_depth3[base] &= ~(3 << shift) & 0xffffffff
     corners_ud_edges_depth3[base] |= value << shift
 
-########################################################################################################################
-
-
 def create_phase1_prun_table():
     global flipslice_twist_depth3
     total = defs.N_FLIPSLICE_CLASS * defs.N_TWIST
     fname = "phase1_prun"
     if not path.isfile(path.join(defs.FOLDER, fname)):
-        print("creating " + fname + " table...")
-        print('This may take half an hour or even longer, depending on the hardware.')
+        print("Создание " + fname + " таблицы...")
+        print('Это может занять длительное время, скорость зависит от конфигурации ПК')
 
         flipslice_twist_depth3 = ar.array(uint32, [0xffffffff] * (total // 16 + 1))
 
@@ -80,7 +77,7 @@ def create_phase1_prun_table():
         while done != total:
             depth3 = depth % 3
             if depth == 9:
-                print('flipping to backwards search...')
+                print('backwards search...')
                 backsearch = True
             if depth < 8:
                 mult = 5
@@ -150,7 +147,7 @@ def create_phase1_prun_table():
         fh = open(path.join(defs.FOLDER, fname), "wb")
         flipslice_twist_depth3.tofile(fh)
     else:
-        print("loading " + fname + " table...")
+        print("загрузка " + fname + " таблицы")
         fh = open(path.join(defs.FOLDER, fname), "rb")
         flipslice_twist_depth3 = ar.array(uint32)
         flipslice_twist_depth3.fromfile(fh, total // 16 + 1)
@@ -162,7 +159,7 @@ def create_phase2_prun_table():
     fname = "phase2_prun"
     global corners_ud_edges_depth3
     if not path.isfile(path.join(defs.FOLDER, fname)):
-        print("creating " + fname + " table...")
+        print("создание " + fname + " таблицы")
 
         corners_ud_edges_depth3 = ar.array(uint32, [0xffffffff] * (total // 16))
         cc = cb.CubieCube()
@@ -240,7 +237,6 @@ def create_phase2_prun_table():
             print()
             print('depth:', depth, 'done: ' + str(done) + '/' + str(total))
 
-        print('remaining unfilled entries have depth >=11')
         fh = open(path.join(defs.FOLDER, fname), "wb")
         corners_ud_edges_depth3.tofile(fh)
     else:
@@ -256,7 +252,7 @@ def create_phase2_cornsliceprun_table():
     fname = "phase2_cornsliceprun"
     global cornslice_depth
     if not path.isfile(path.join(defs.FOLDER, fname)):
-        print("creating " + fname + " table...")
+        print("Создание " + fname + " таблицы")
         cornslice_depth = ar.array('b', [-1] * (defs.N_CORNERS * defs.N_PERM_4))
         corners = 0
         slice_ = 0
@@ -283,7 +279,7 @@ def create_phase2_cornsliceprun_table():
         fh = open(path.join(defs.FOLDER, fname), "wb")
         cornslice_depth.tofile(fh)
     else:
-        print("loading " + fname + " table...")
+        print("загрузка " + fname + " таблицы")
         fh = open(path.join(defs.FOLDER, fname), "rb")
         cornslice_depth = ar.array('b')
         cornslice_depth.fromfile(fh, defs.N_CORNERS * defs.N_PERM_4)

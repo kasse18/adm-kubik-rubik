@@ -52,7 +52,8 @@ class Cube:
                        Shape2(2, 4),
                        Shape2(2, 5),
                        Shape2(2, 3)]
-        # todo связь индексов шейпов и их реального расположения
+
+        '''Связь индексов всех шейпов(углы, грани) с их расположением на кубе'''
         self.cubeShape: list[list[list[int]]] = [
             [
                 [4, 5, 7],
@@ -135,7 +136,8 @@ class Cube:
         self.second_shape = []
         self.yellow_shape2 = []
         self.yellow_shape3 = []
-        # todo относительно цвета\позиции индекс соседнего элемента
+
+        '''Индекс соседнего элемента на основе цвета/позиции'''
         self.color_left = {
             1: 4,
             4: 2,
@@ -166,7 +168,7 @@ class Cube:
             [[5] * 3, [5] * 3, [5] * 3]  # Right (R)
         ]
 
-    # Получение строки cubestring, которая описывает положение цветов кубика Рубика для последующий обработки в алгоритме Коцембы
+    '''Получение строки cubestring, которая описывает положение цветов кубика Рубика для последующий обработки в алгоритме Коцембы'''
     def get_kociemba_state(self):
         self.shape_to_cube()
 
@@ -236,15 +238,15 @@ class Cube:
                 moves[move]()
                 self.render()
 
-    # Сброс счётчика шагов
+    '''Сброс счётчика шагов'''
     def reset_move_count(self):
         self.move_count = 0
 
-    # todo для вызова рендера
+    '''для вызова рендера'''
     def add_board(self, board):
         self.board = board
 
-    # Отрисовка кубика
+    '''Отрисовка кубика'''
     def draw(self, color: int, cord: list[int]):
         ind = self.cubeShape[cord[0]][cord[1]][cord[2]]
         if (cord[1] + 1) * (cord[2] + 1) % 2 == 0:
@@ -255,7 +257,7 @@ class Cube:
             self.shape3[ind].colors[i] = color
         self.cube[cord[0]][cord[1]][cord[2]] = color
 
-    # Проверка собранности кубика
+    '''Проверка собранности кубика'''
     def check(self):
         self.shape_to_cube()
         for side in self.cube:
@@ -265,7 +267,7 @@ class Cube:
                         return False
         return True
 
-    # todo перевод отображения шейпов в отображение 6 матриц 3 на 3 цветов
+    '''перевод отображения шейпов в отображение 6 матриц 3 на 3 с цветами(развертка куба)'''
     def shape_to_cube(self):
         for i in range(6):
             for k in range(3):
@@ -298,12 +300,12 @@ class Cube:
 
     def render(self):
         self.shape_to_cube()
-        # todo матрицы 3 на 3 в одну матрицу 9 на 12
+        '''отрисовка матрицы 9 на 12 на основе 6 матриц 3 на 3'''
         self.board.cube_to_board()
         self.board.render()
         pygame.display.flip()
 
-    # todo общая функция для поворотов, возвращает все необходимые для поворота данные
+    '''общая функция для поворотов, возвращает все необходимые для поворота данные'''
     def DataSwitch(self, place: list[list[int]]):
         shape2_ind = [place[0][1], place[1][2], place[2][1], place[1][0]]
         shape3_ind = [place[0][0], place[0][2], place[2][2], place[2][0]]
@@ -313,7 +315,7 @@ class Cube:
         pos3 = [[shape3[el].pos[0], shape3[el].pos[1], shape3[el].pos[2]] for el in shape3_ind]
         return pos2, pos3, shape2, shape3, shape2_ind, shape3_ind
 
-    # Поворот грани
+    '''Поворот грани'''
     def switch(self, ind: int):
         place = self.cubeShape[ind]
         pos2, pos3, shape2, shape3, shape2_ind, shape3_ind = self.DataSwitch(place)
@@ -331,7 +333,7 @@ class Cube:
             self.shape3[shape3_ind[i]] = shape3[shape3_ind[i - 1]]
             self.shape3[shape3_ind[i]].pos = new_pos
 
-    # Up
+    # Up 90*
     def U(self):
         self.cubestring += "U "
         time.sleep(c.render_timer)
@@ -339,7 +341,7 @@ class Cube:
         self.move_count += 1
         self.render()
 
-    # Right
+    # Right 90*
     def R(self):
         self.cubestring += "R "
         time.sleep(c.render_timer)
@@ -347,7 +349,7 @@ class Cube:
         self.move_count += 1
         self.render()
 
-    # Left
+    # Left 90*
     def L(self):
         self.cubestring += "L "
         time.sleep(c.render_timer)
@@ -355,7 +357,7 @@ class Cube:
         self.move_count += 1
         self.render()
 
-    # Down
+    # Down 90*
     def D(self):
         self.cubestring += "D "
         time.sleep(c.render_timer)
@@ -363,7 +365,7 @@ class Cube:
         self.move_count += 1
         self.render()
 
-    # Frontча
+    # Front 90*
     def F(self):
         self.cubestring += "F "
         time.sleep(c.render_timer)
@@ -371,7 +373,7 @@ class Cube:
         self.move_count += 1
         self.render()
 
-    # Back
+    # Back 90*
     def B(self):
         self.cubestring += "B "
         time.sleep(c.render_timer)
@@ -501,7 +503,7 @@ class Cube:
         self.move_count = 0
         self.cubestring = ''
 
-    # сборка креста
+    '''сборка креста'''
     def cross_func(self, position: int):
         flag = True
         cnt = 0
@@ -521,8 +523,7 @@ class Cube:
         for _ in range(cnt):
             self.u()
 
-    # todo если позиция элемента сверху, но не на месте, то ее надо опустить вниз
-    # todo в идеале вызывать ее от определенного элемента если это не уронит ничего
+    '''если позиция элемента сверху, но не на месте, то ее надо опустить вниз'''
     def cross_func_1(self):
         for elem in self.white_shape2:
             if elem.pos != [self.color_position[elem.colors[0]], self.color_position[elem.colors[1]]]:
@@ -540,7 +541,7 @@ class Cube:
                                 break
                     self.position_function_2[elem.pos[ind_1 - 1]]()
 
-    # todo если ребро белого цвета сбоку его надо опустить
+    '''если ребро белого цвета сбоку его надо опустить'''
     def cross_func_2(self):
         for elem in self.white_shape2:
             if elem.pos != [self.color_position[elem.colors[0]], self.color_position[elem.colors[1]]]:
@@ -556,7 +557,7 @@ class Cube:
                         case [2, 4]:
                             self.cross_func(4)
 
-    # todo сборка креста начало
+    '''сборка креста начало'''
     def cross(self):
         self.white_shape2 = []
         for elem in self.shape2:
@@ -577,7 +578,6 @@ class Cube:
                     self.cross_func_2()
                     flag = True
                     break
-        # todo после этого считается что все что не на месте, внизу. подъем остального наверх, наверно надо тоже в отдельную функцию
         for elem in self.white_shape2:
             if 1 in elem.pos:
                 continue
@@ -611,7 +611,7 @@ class Cube:
                             self.l()
                             self.f()
 
-    # todo  если угол белым вниз
+    '''если угол белым цветом смотрит вниз'''
     def first_two(self, elem):
         if 3 in elem.pos:
             ind_wh = elem.colors.index(6)
@@ -624,7 +624,7 @@ class Cube:
                 self.D2()
                 self.position_function_3[pp]()
 
-    # todo в зависимости от того на каком месте не белый боковой элемент ставим на место
+    '''в зависимости от того на каком месте не белый боковой элемент - ставим на место'''
     def first_finish_func(self, pos, elem, ind_wh):
         # print("first finish func", pos)
         while self.color_position[elem.colors[pos]] != elem.pos[pos]:
@@ -641,7 +641,7 @@ class Cube:
             self.d()
             self.position_function_3[pp]()
 
-    # todo если угол белым не вниз
+    '''если угол повернут белым цветом не вниз'''
     def first_finish(self, elem):
         if 3 in elem.pos:
             ind_wh = elem.colors.index(6)
@@ -655,24 +655,17 @@ class Cube:
                     case [0, 2]:
                         self.first_finish_func(1, elem, ind_wh)
 
-    # todo начало сборки углов
+    '''начало сборки углов'''
     def first_level(self):
         self.cross()
         self.white_shape3 = []
         for elem in self.shape3:
             if 6 in elem.colors:
                 self.white_shape3.append(elem)
-        flag = True
-        while flag:
-            flag = False
-            for elem in self.white_shape3:
-                if elem.pos != [self.color_position[elem.colors[0]], self.color_position[elem.colors[1]],
-                                self.color_position[elem.colors[2]]] and 1 not in elem.pos:
-                    self.first_two(elem)
-                    self.first_finish(elem)
+
         flag = True
         cnt = 0
-        # todo если угол на своем месте но не правильно ориентирован, надо спустить
+        '''если угол на своем месте но неправильно ориентирован, надо спустить'''
         while flag:
             flag = False
             for elem in self.white_shape3:
@@ -684,14 +677,7 @@ class Cube:
                         cnt += 1
                         flag = True
                         pp = elem.pos[ind_wh]
-                        match sorted([ind_wh, ind_u]):
-                            case [0, 1]:
-                                ind_3 = 2
-                            case [1, 2]:
-                                ind_3 = 0
-                            case [0, 2]:
-                                ind_3 = 1
-                        if self.color_left[elem.colors[ind_u]] == elem.colors[ind_3]:
+                        if self.color_left[elem.colors[ind_u]] == self.position_color[elem.pos[ind_wh]]:
                             self.position_function[pp]()
                             self.D()
                             self.position_function_3[pp]()
@@ -704,14 +690,14 @@ class Cube:
                 self.D()
                 cnt = 0
         flag = True
-        # todo ставим на место углы
+        '''ставим на нужное место углы'''
         while flag:
             flag = False
             for elem in self.white_shape3:
                 if elem.pos != [self.color_position[elem.colors[0]], self.color_position[elem.colors[1]],
                                 self.color_position[elem.colors[2]]]:
                     flag = True
-                    # todo если угол сверху но не на месте надо опустить
+                    '''если угол сверху но не на месте надо опустить'''
                     if 1 in elem.pos:
                         ind_wh = elem.colors.index(6)
                         ind_u = elem.pos.index(1)
@@ -727,15 +713,8 @@ class Cube:
                                 self.D()
                                 self.position_function[pp2]()
                         else:
-                            match sorted([ind_wh, ind_u]):
-                                case [0, 1]:
-                                    ind_3 = 2
-                                case [1, 2]:
-                                    ind_3 = 0
-                                case [0, 2]:
-                                    ind_3 = 1
                             pp = elem.pos[ind_wh]
-                            if self.color_left[elem.colors[ind_u]] == elem.colors[ind_3]:
+                            if self.color_left[elem.colors[ind_u]] == self.position_color[elem.pos[ind_wh]]:
                                 self.position_function[pp]()
                                 self.D()
                                 self.position_function_3[pp]()
@@ -746,7 +725,7 @@ class Cube:
                     self.first_two(elem)
                     self.first_finish(elem)
 
-    # todo сборка второго уровня
+    '''сборка второго уровня'''
     def second_level(self):
         self.first_level()
         # print("second")
@@ -760,7 +739,7 @@ class Cube:
             for elem in self.second_shape:
                 if elem.pos != [self.color_position[elem.colors[0]], self.color_position[elem.colors[1]]]:
                     flag = True
-                # todo если элемент на нижнем слое
+                '''если элемент на нижнем слое'''
                 if 3 in elem.pos:
                     ind_d = elem.pos.index(3)
                     while elem.pos[ind_d - 1] != self.color_position[elem.colors[ind_d - 1]]:
@@ -791,7 +770,7 @@ class Cube:
                         self.D()
                         self.position_function[pp2]()
                     break
-                # todo если элемент не на месте и не снизу
+                '''если элемент не на месте и не на нижнем слое'''
                 if sorted(elem.pos) != sorted(
                         [self.color_position[elem.colors[0]], self.color_position[elem.colors[1]]]):
                     # print("hi", elem.pos, elem.colors, self.color_left[elem.colors[0]])
@@ -820,7 +799,7 @@ class Cube:
                         self.D()
                         self.position_function[pp2]()
                     break
-                # todo если элемент на месте но не правильно
+                '''если элемент на месте но ориентирован неправильно'''
                 if elem.pos != [self.color_position[elem.colors[0]], self.color_position[elem.colors[1]]]:
                     # print(elem.pos, elem.colors)
                     if self.color_left[elem.colors[0]] != elem.colors[1]:
@@ -869,14 +848,14 @@ class Cube:
         self.l()
         self.f()
 
-    # todo сборка желтого креста
+    '''сборка желтого креста'''
     def last_cross(self):
         # print("cross")
         pos_not_d_y = []
         for elem in self.yellow_shape2:
             if elem.colors[elem.pos.index(3)] != 3:
                 pos_not_d_y.append(elem.pos[elem.pos.index(3) - 1])
-        # todo  подсчет количества желтых снизу, все варианты вызывают рекурсию пока все не будут снизу
+        '''подсчет количества желтых элементов снизу, все варианты вызывают рекурсию пока все не будут снизу'''
         if len(pos_not_d_y) == 0:
             return
         if len(pos_not_d_y) == 4:
@@ -896,14 +875,14 @@ class Cube:
         self.galka()
         self.last_cross()
 
-    # todo ориентировка углов желтым вниз
+    '''ориентирование углов желтым вниз'''
     def last_shape3_d(self):
         # print("last_shape3_d")
         elem_d_y = []
         for elem in self.yellow_shape3:
             if elem.colors[elem.pos.index(3)] == 3:
                 elem_d_y.append(elem)
-        # todo  подсчет количества желтых снизу, все варианты вызывают рекурсию пока все не будут снизу
+        '''подсчет количества желтых элементов снизу, все варианты вызывают рекурсию пока все не будут снизу'''
         if len(elem_d_y) == 4:
             return
         if len(elem_d_y) == 1:
@@ -937,7 +916,7 @@ class Cube:
         self.kalibri()
         self.last_shape3_d()
 
-    # todo постановка желтых углов на места
+    '''постановка желтых углов на правильные места'''
     def last_shape3(self):
         # print("last_shape3")
         cnt = [[0 for _ in range(6)] for i in range(6)]
@@ -1032,7 +1011,7 @@ class Cube:
         self.kambria()
         self.finish()
 
-    # todo  начало сборки последнего слоя
+    '''начало сборки последнего слоя'''
     def last_level(self):
         self.first_level()
         self.second_level()
@@ -1049,7 +1028,7 @@ class Cube:
         self.last_shape3_d()
         self.last_shape3()
         self.finish()
-        # todo в этот момент считается что все элементы на месте, требуется только подвинуть нижнюю грань до собранного состояния
+        '''в этот момент считается что все элементы на месте, требуется только подвинуть нижнюю грань до собранного состояния'''
         while self.shape2[7].pos[self.shape2[7].colors.index(3) - 1] != self.color_position[
             self.shape2[7].colors[self.shape2[7].colors.index(3) - 1]]:
             self.D()

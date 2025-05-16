@@ -951,7 +951,7 @@ class Cube:
         self.D()
         self.R()
 
-    # todo постановка желтых ребер на места
+    '''постановка желтых ребер на свои позиции'''
     def finish(self):
         cnt = [[0 for _ in range(6)] for i in range(6)]
 
